@@ -1,23 +1,73 @@
 import {TextInput, View, StyleSheet, Text, Pressable} from "react-native";
+import {Formik} from "formik";
+import * as yup from "yup";
 
 function SignInScreen({ navigation }) {
     return (
         <View style={styles.container}>
-            <Text>Enter your email and password</Text>
-            <TextInput
-                style={styles.inputStyle}
-                placeholder="Email" />
-            <TextInput
-                style={styles.inputStyle}
-                secureTextEntry={true}
-                placeholder="Password"
-            />
-            <Pressable onPress={() => navigation.navigate('HomeDrawer')} style={styles.button}>
-                <Text style={styles.btnText}>Sign in</Text>
-            </Pressable>
+            <Formik
+                validationSchema={registrationValidationSchema}
+                initialValues={{email: '', password: ''}}
+                onSubmit={() => handleFormSubmit(navigation)}
+            >
+                {({
+                      handleChange,
+                      handleBlur,
+                      handleSubmit,
+                      values,
+                      errors,
+                      touched,
+                      isValid
+                  }) => (
+                    <>
+                        <Text>Sign in</Text>
+                        <TextInput
+                            maxLength={30}
+                            style={styles.inputStyle}
+                            placeholder="Email"
+                            onChangeText={handleChange('email')}
+                            onBlur={handleBlur('email')}
+                            value={values.email}
+                            keyboardType="email-address"/>
+                        {errors.email && touched.email &&
+                            <Text style={styles.errorText}>{errors.email}</Text>
+                        }
+                        <TextInput
+                            maxLength={30}
+                            style={styles.inputStyle}
+                            secureTextEntry={true}
+                            placeholder="Password"
+                            onChangeText={handleChange('password')}
+                            onBlur={handleBlur('password')}
+                            value={values.password}
+                        />
+                        {errors.password && touched.password &&
+                            <Text style={styles.errorText}>{errors.password}</Text>
+                        }
+                        <Pressable onPress={() => handleSubmit()}
+                                   style={isValid ? styles.button : styles.buttonDisabled} disabled={!isValid}>
+                            <Text style={styles.btnText}>Sign up</Text>
+                        </Pressable>
+                    </>
+                )}
+            </Formik>
         </View>
     );
 }
+
+const handleFormSubmit = (navigation) =>{
+    navigation.navigate('HomeDrawer');
+}
+
+const registrationValidationSchema = yup.object().shape({
+    email: yup
+        .string()
+        .email("Please enter valid email")
+        .required('Email Address is required'),
+    password: yup
+        .string()
+        .required('Password is required'),
+})
 
 const styles = StyleSheet.create({
     container: {
@@ -36,6 +86,16 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         elevation: 3,
         backgroundColor: 'black',
+    },
+    buttonDisabled:{
+        margin: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: '#888',
     },
     btnText:{
         fontSize: 16,
@@ -57,6 +117,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         color: '#fff',
         fontSize: 20,
+    },
+    errorText:{
+        fontSize: 10,
+        color: 'red',
     },
     text: {
         color: '#fff',
