@@ -27,7 +27,7 @@ export default function HomeDrawer({navigation}) {
         [navigation]
     );
     return (
-        <Drawer.Navigator initialRouteName="Home" screenOptions={({navigation}) => ({
+        <Drawer.Navigator initialRouteName="MyBookings" screenOptions={({navigation}) => ({
             headerRight: () => (
                 <Button title="Sign Out" onPress={handleSignOut}/>
             ),
