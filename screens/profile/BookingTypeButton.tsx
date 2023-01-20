@@ -1,8 +1,9 @@
 import {TouchableOpacity, Text, StyleSheet} from "react-native";
 import React from "react";
+import {BookableType} from "../interfaces/bookingInterface";
 
-export default function BookingTypeButton(props: {value: string, selectedValue: string,
-    setSelectedValue: (value: string) => void}) {
+export default function BookingTypeButton(props: {value: BookableType, selectedValue: BookableType, label: string,
+    setSelectedValue: (value: BookableType) => void}) {
     return (
         <TouchableOpacity
             key={props.value}
@@ -13,7 +14,7 @@ export default function BookingTypeButton(props: {value: string, selectedValue: 
                     styles.buttonLabel,
                     props.selectedValue === props.value && styles.selectedLabel,
                 ]}>
-                {props.value}
+                {props.label}
             </Text>
         </TouchableOpacity>
     )

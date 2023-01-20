@@ -1,9 +1,9 @@
 import {UserInterface} from "./userInterface";
 
 export enum BookableType {
-    Flat,
-    Car,
-    Park
+    Flat = "Flat",
+    Car = "Car",
+    Park = "Park"
 }
 
 export interface BookingInterface {
