@@ -1,10 +1,13 @@
-import {FlatList, RefreshControl, Text, TouchableOpacity} from "react-native";
-import React, {useEffect, useRef, useState} from "react";
+import {FlatList, RefreshControl} from "react-native";
+import React, {Ref, useEffect, useState} from "react";
 import BookingsTableItem from "./BookingsTableItem";
-import {BookingInterface, BookableType} from "../interfaces/bookingInterface";
-import {UserInterface} from "../interfaces/userInterface";
+import {BookingInterface, } from "../interfaces/bookingInterface";
 
-export default function BookingsTable(props: {bookings: BookingInterface[], fetchData: (boolean) => void}) {
+export default function BookingsTable(props: {
+    bookings: BookingInterface[],
+    fetchData: (boolean) => void,
+    flatListRef: Ref<FlatList<BookingInterface>>
+},) {
     const [loading, setLoading] = useState(false);
     function handleFetchData() {
         setLoading(true);
@@ -23,8 +26,9 @@ export default function BookingsTable(props: {bookings: BookingInterface[], fetc
 
     return (
         <FlatList
+            ref={props.flatListRef}
             data={props.bookings}
-            keyExtractor={(booking, index) => booking.id.toString()}
+            keyExtractor={(booking) => booking.id.toString()}
             refreshControl={
                 <RefreshControl
                     refreshing={loading}

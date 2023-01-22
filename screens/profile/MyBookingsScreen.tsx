@@ -1,15 +1,14 @@
-import {StyleSheet, View} from "react-native";
+import {FlatList, StyleSheet, View} from "react-native";
 import React, {useEffect, useRef, useState} from "react";
 import BookingTypeButton from "./BookingTypeButton";
 import BookingsTable from "./BookingsTable";
-import {UserInterface} from "../interfaces/userInterface";
 import {BookableType, BookingInterface} from "../interfaces/bookingInterface";
 import {GetBookingsArgsInterface} from "../interfaces/getBookingsArgsInterface";
 import useGetBookings from "./useGetBookings";
-import {prepareDataForValidation} from "formik";
 
 function MyBookingsScreen({navigation}) {
 
+    const flatListRef = useRef<FlatList>()
     const [bookings, setBookings] = useState<BookingInterface[]>([]);
     const [args, setArgs] = useState<GetBookingsArgsInterface>({bookableType: BookableType.Flat,
         pageContext: {currentPage: 0, pageSize: 10}});
@@ -26,7 +25,9 @@ function MyBookingsScreen({navigation}) {
     }, [data]);
 
     function setBookableType(bookable: BookableType) {
-        setArgs(prev => ({bookableType: bookable, pageContext: {pageSize: 10, currentPage: 0}}));
+        setArgs({bookableType: bookable, pageContext: {pageSize: 10, currentPage: 0}});
+        if(flatListRef.current.props.data.length > 0)
+            flatListRef.current.scrollToIndex({animated: true, index:0})
     }
     function fetchData(reset: boolean) {
         if (reset) {
@@ -48,12 +49,12 @@ function MyBookingsScreen({navigation}) {
                                    setSelectedValue={setBookableType}/>
             </View>
             <View style={styles.tableContainer}>
-                <BookingsTable bookings={bookings} fetchData={fetchData}/>
+                <BookingsTable bookings={bookings} fetchData={fetchData} flatListRef={flatListRef}/>
             </View>
         </View>
     );
 }
-
+/*
 const mockUsers1: UserInterface[] = [
     {firstName: 'Igor', lastName: 'Faliszewski', email: 'igorfaliszewski.pw.edu.pl', id: 1, isActive: true},
     {firstName: 'Jakub', lastName: 'Borek', email: 'jakubborek.pw.edu.pl', id: 2, isActive: true}
@@ -200,7 +201,7 @@ const mockBookings: BookingInterface[] = [
         itemExternalId: "123",
         isCancelled: false
     },
-]
+]*/
 
 const styles = StyleSheet.create({
     container: {
