@@ -1,10 +1,9 @@
 import React, {useState} from "react";
 import {StyleSheet, Text, TouchableOpacity} from "react-native";
-import {BookingInterface} from "../interfaces/bookingInterface";
-import {dateToString} from "../../utils/dateToString";
-import MyBookingsModal from "./MyBookingsModal";
+import BookableModal from "./BookableModal";
+import {BookableInterface} from "../interfaces/bookableInterface";
 
-export default function BookingsTableItem(props: {booking: BookingInterface}) {
+export default function BookablesTableItem(props: {bookable: BookableInterface}) {
 
     const handlePress = () => {
         setModalVisible(true);
@@ -13,11 +12,8 @@ export default function BookingsTableItem(props: {booking: BookingInterface}) {
 
     return (
         <TouchableOpacity onPress={handlePress} style={styles.box}>
-            <Text style={styles.label}>Item name {props.booking.id}</Text>
-            <Text style={styles.label}>From: {dateToString(props.booking.bookedFrom)}</Text>
-            <Text style={styles.label}>To: {dateToString(props.booking.bookedUntil)}</Text>
-            <Text style={styles.label}>Price: {props.booking.totalPrice}</Text>
-            {modalVisible && <MyBookingsModal booking={props.booking} setVisible={setModalVisible}/>}
+            <Text style={styles.label}>Item name {props.bookable.description}</Text>
+            {modalVisible && <BookableModal bookable={props.bookable} setVisible={setModalVisible}/>}
         </TouchableOpacity>
     )
 }
