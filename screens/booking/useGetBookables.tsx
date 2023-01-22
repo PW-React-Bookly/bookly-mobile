@@ -10,7 +10,6 @@ const useGetBookables = (args: GetBookablesArgsInterface) => {
 
     useEffect(() =>
         {
-            console.log(args)
             fetch(buildUrl())
                 .then(async (response) => {
                     if (!response.ok)
