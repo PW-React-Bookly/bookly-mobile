@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
 import {BookableType} from "../interfaces/bookingInterface";
+import {BookableInterface} from "../interfaces/bookableInterface";
 
-const useGetBookingDetails = (args: {itemExternalId: string, bookableType: BookableType}) => {
+const useGetBookingDetails = (args: {id: string, bookableType: BookableType}) => {
 
     const [data, setData] = useState<any>({});
 
@@ -13,9 +14,10 @@ const useGetBookingDetails = (args: {itemExternalId: string, bookableType: Booka
                 .then(async (response) => {
                     if (!response.ok)
                         throw Error(response.statusText);
-                    const details: any[] = await response.json();
-                    setData(details);
+                    const details: BookableInterface[] = await response.json();
+                    setData(details.map(d => ({...d, bookableType: args.bookableType})));
                 }).catch((error) => {
+                    console.log(error);
             });
         },
         [args])
@@ -24,7 +26,7 @@ const useGetBookingDetails = (args: {itemExternalId: string, bookableType: Booka
         let url = endpointUrl;
         if (args.bookableType != undefined) {
             url+=`/${args.bookableType.toLowerCase()}s`
-            url+=`/${args.itemExternalId}`;
+            url+=`/${args.id}`;
         }
         return url;
     }

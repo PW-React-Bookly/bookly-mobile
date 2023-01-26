@@ -1,7 +1,14 @@
 import React, {useState} from "react";
-import {StyleSheet, Text, TouchableOpacity} from "react-native";
+import {StyleSheet, TouchableOpacity, View} from "react-native";
 import BookableModal from "./BookableModal";
 import {BookableInterface} from "../interfaces/bookableInterface";
+import {BookableType} from "../interfaces/bookingInterface";
+import FlatTilePanel from "./FlatTilePanel";
+import ParkTilePanel from "./ParkTilePanel";
+import CarTilePanel from "../bookables/car/CarTilePanel";
+import {CarInterface} from "../bookables/car/carInterface";
+import {FlatInterface} from "../interfaces/flatInterface";
+import {ParkInterface} from "../interfaces/parkInterface";
 
 export default function BookablesTableItem(props: {bookable: BookableInterface}) {
 
@@ -12,7 +19,14 @@ export default function BookablesTableItem(props: {bookable: BookableInterface})
 
     return (
         <TouchableOpacity onPress={handlePress} style={styles.box}>
-            <Text style={styles.label}>Item name {props.bookable.description}</Text>
+            <View>
+                {(props.bookable.bookableType === BookableType.Car)?
+                    <CarTilePanel car={props.bookable as CarInterface} />:
+                    (props.bookable.bookableType === BookableType.Flat)?
+                        <FlatTilePanel flat={props.bookable as FlatInterface}/>:
+                        <ParkTilePanel park={props.bookable as ParkInterface}/>
+                }
+            </View>
             {modalVisible && <BookableModal bookable={props.bookable} setVisible={setModalVisible}/>}
         </TouchableOpacity>
     )
@@ -26,11 +40,6 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 5,
         borderRadius: 4,
-    },
-    label: {
-        textAlign: 'left',
-        marginBottom: 10,
-        fontSize: 20,
     },
     centeredView: {
         flex: 1,
