@@ -28,7 +28,7 @@ export default function BookablesTable(props: {
         <FlatList
             ref={props.flatListRef}
             data={props.bookables}
-            keyExtractor={(bookable) => bookable.itemExternalId}
+            keyExtractor={(bookable) => bookable.id}
             refreshControl={
                 <RefreshControl
                     refreshing={loading}

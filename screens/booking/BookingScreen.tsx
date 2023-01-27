@@ -6,14 +6,15 @@ import {BookableInterface} from "../interfaces/bookableInterface";
 import {GetBookablesArgsInterface} from "../interfaces/getBookablesArgsInterface";
 import useGetBookables from "./useGetBookables";
 import BookablesTable from "./BookablesTable";
+import FilterCollapsible from "./filter/FilterCollapsible";
 
 function BookingScreen({ navigation }) {
     const flatListRef = useRef<FlatList>()
     const [bookables, setBookables] = useState<BookableInterface[]>([]);
     const [args, setArgs] = useState<GetBookablesArgsInterface>({bookableType: BookableType.Flat,
-        pageContext: {currentPage: 0, pageSize: 10}});
+        pageContext: {currentPage: 0, pageSize: 10}, queryParameters: new Map<string, string>()});
     const {
-        data,
+        data
     } = useGetBookables(args);
 
     useEffect(() => {
@@ -25,16 +26,18 @@ function BookingScreen({ navigation }) {
     }, [data]);
 
     function setBookableType(bookable: BookableType) {
-        setArgs({bookableType: bookable, pageContext: {pageSize: 10, currentPage: 0}});
+        setArgs({bookableType: bookable, pageContext: {pageSize: 10, currentPage: 0}, queryParameters: new Map<string, string>()});
         if(flatListRef.current.props.data.length > 0)
             flatListRef.current.scrollToIndex({animated: true, index:0})
     }
     function fetchData(reset: boolean) {
         if (reset) {
-            setArgs(prev => ({pageContext: {pageSize: 10, currentPage: 0}, bookableType: prev.bookableType}));
+            setArgs(prev => ({pageContext: {pageSize: 10, currentPage: 0}, bookableType: prev.bookableType,
+                queryParameters: prev.queryParameters}));
         } else {
+            if(bookables.length % args.pageContext.pageSize !== 0) return;
             setArgs(prev => ({pageContext: {pageSize: 10, currentPage: prev.pageContext.currentPage + 1},
-                bookableType: prev.bookableType}));
+                bookableType: prev.bookableType, queryParameters: prev.queryParameters}));
         }
     }
 
@@ -48,6 +51,7 @@ function BookingScreen({ navigation }) {
                 <BookingTypeButton label={"Parking"} value={BookableType.Park} selectedValue={args.bookableType}
                                    setSelectedValue={setBookableType}/>
             </View>
+            <FilterCollapsible  args={args} setArgs={setArgs}/>
             <View style={styles.tableContainer}>
                 <BookablesTable bookables={bookables} fetchData={fetchData} flatListRef={flatListRef}/>
             </View>

@@ -1,7 +1,7 @@
 import {Alert, Modal, Pressable, StyleSheet, Text, View} from "react-native";
 import React from "react";
 import {BookableType, BookingInterface} from "../interfaces/bookingInterface";
-import CarDetailsPanel from "../details/CarDetailsPanel";
+import CarDetailsPanel from "../bookables/car/CarDetailsPanel";
 import FlatDetailsPanel from "../details/FlatDetailsPanel";
 import ParkDetailsPanel from "../details/ParkDetailsPanel";
 import BookingPanel from "./BookingPanel";
@@ -33,10 +33,10 @@ const MyBookingsModal = (props: {booking: BookingInterface, setVisible: (x: bool
                     <BookingPanel booking={props.booking}/>
                     <View>
                         {(props.booking.bookableType === BookableType.Car)?
-                            <CarDetailsPanel itemExternalId={props.booking.itemExternalId} bookableType={BookableType.Car}/>:
+                            <CarDetailsPanel id={props.booking.id} bookableType={BookableType.Car}/>:
                             (props.booking.bookableType === BookableType.Flat)?
-                                <FlatDetailsPanel itemExternalId={props.booking.itemExternalId} bookableType={BookableType.Flat}/>:
-                                <ParkDetailsPanel itemExternalId={props.booking.itemExternalId} bookableType={BookableType.Park}/>
+                                <FlatDetailsPanel id={props.booking.id} bookableType={BookableType.Flat}/>:
+                                <ParkDetailsPanel id={props.booking.id} bookableType={BookableType.Park}/>
                         }
                     </View>
                 </View>

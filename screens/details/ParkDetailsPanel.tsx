@@ -3,7 +3,7 @@ import {View, Text} from "react-native";
 import useGetBookingDetails from "../profile/useGetBookingDetails";
 import {ParkInterface} from "../interfaces/parkInterface";
 
-const ParkDetailsPanel = (props: {itemExternalId: string, bookableType: BookableType}) => {
+const ParkDetailsPanel = (props: {id: string, bookableType: BookableType}) => {
 
     const {
         data,

@@ -7,7 +7,7 @@ export enum BookableType {
 }
 
 export interface BookingInterface {
-    id: number,
+    id: string,
     user: UserInterface,
     bookableType: BookableType,
     bookedFrom: Date,

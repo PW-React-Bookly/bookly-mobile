@@ -1,11 +1,10 @@
 import {Alert, Modal, Pressable, StyleSheet, Text, TextInput, View} from "react-native";
 import React from "react";
 import {BookableType} from "../interfaces/bookingInterface";
-import CarDetailsPanel from "../details/CarDetailsPanel";
+import CarDetailsPanel from "../bookables/car/CarDetailsPanel";
 import FlatDetailsPanel from "../details/FlatDetailsPanel";
 import ParkDetailsPanel from "../details/ParkDetailsPanel";
 import {BookableInterface} from "../interfaces/bookableInterface";
-import {FlatInterface} from "../interfaces/flatInterface";
 
 const BookableModal = (props: {bookable: BookableInterface, setVisible: (x: boolean)=>void}) => {
 
@@ -50,10 +49,10 @@ const BookableModal = (props: {bookable: BookableInterface, setVisible: (x: bool
                     </View>
                     <View>
                         {(props.bookable.bookableType === BookableType.Car)?
-                            <CarDetailsPanel itemExternalId={props.bookable.itemExternalId} bookableType={BookableType.Car}/>:
+                            <CarDetailsPanel id={props.bookable.id} bookableType={BookableType.Car}/>:
                             (props.bookable.bookableType === BookableType.Flat)?
-                                <FlatDetailsPanel itemExternalId={props.bookable.itemExternalId} bookableType={BookableType.Flat}/>:
-                                <ParkDetailsPanel itemExternalId={props.bookable.itemExternalId} bookableType={BookableType.Park}/>
+                                <FlatDetailsPanel id={props.bookable.id} bookableType={BookableType.Flat}/>:
+                                <ParkDetailsPanel id={props.bookable.id} bookableType={BookableType.Park}/>
                         }
                     </View>
                 </View>
