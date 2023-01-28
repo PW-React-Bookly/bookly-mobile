@@ -1,44 +1,66 @@
 import React, {Dispatch, SetStateAction} from "react"
-import {View, Text, StyleSheet} from "react-native";
-import {Collapse,CollapseHeader, CollapseBody} from 'accordion-collapse-react-native';
-import FilterPanel from "./FilterPanel";
+import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import {Collapse, CollapseHeader, CollapseBody} from 'accordion-collapse-react-native';
+import CarFilterPanel from "./CarFilterPanel";
 import {GetBookablesArgsInterface} from "../../interfaces/getBookablesArgsInterface";
+import {dateToString} from "../../../utils/dateToString";
 
-const FilterCollapsible = (props: {args: GetBookablesArgsInterface, setArgs: Dispatch<SetStateAction<GetBookablesArgsInterface>> }) => {
-   return (
-       <Collapse>
-           <CollapseHeader>
-               <View style={styles.button}>
-                   <Text style={styles.buttonLabel}>Filters</Text>
-               </View>
-           </CollapseHeader>
-           <CollapseBody>
-               <FilterPanel args={props.args} setArgs={props.setArgs}/>
-           </CollapseBody>
-       </Collapse>
-   );
+const FilterCollapsible = (props: {
+    children: React.ReactNode, filterArgs: Map<string, string>, setArgs: any
+}) => {
+
+    function setFilters() {
+        props.setArgs(prev => ({
+            ...prev,
+            pageContext: {pageSize: prev.pageContext.pageSize, currentPage: 0},
+            queryParameters: props.filterArgs
+        }))
+    }
+
+    return (
+        <Collapse>
+            <CollapseHeader>
+                <View style={styles.button}>
+                    <Text style={styles.buttonLabel}>Filters</Text>
+                </View>
+            </CollapseHeader>
+            <CollapseBody>
+                <View>
+                    <View style={{flexDirection: 'row'}}>
+                        {props.children}
+                    </View>
+                    <TouchableOpacity
+                        onPress={setFilters}
+                        style={styles.button}>
+                        <Text style={styles.buttonLabel}>
+                            Filter
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </CollapseBody>
+        </Collapse>
+    );
 }
 
 export default FilterCollapsible;
 
 const styles = StyleSheet.create({
-    button: {
-        flex: 1,
-        paddingHorizontal: 8,
-        paddingVertical: 6,
-        borderRadius: 4,
-        backgroundColor: 'pastelBlue',
-        alignSelf: 'flex-start',
-        marginHorizontal: '1%',
-        marginBottom: 6,
-        minWidth: '30%',
-        textAlign: 'center',
-    },
-    buttonLabel: {
-        textAlign: 'center',
-        fontSize: 22,
-        fontWeight: '500',
-        color: 'coral',
-    },
+        button: {
+            margin: 20,
+            borderRadius: 50,
+            backgroundColor: 'oldlace',
+            marginHorizontal: '1%',
+            minWidth: '10%',
+            textAlign: 'center',
+            width: 40,
+            height: 40,
+        },
+        buttonLabel: {
+            textAlignVertical: 'center',
+            textAlign: 'center',
+            fontSize: 22,
+            fontWeight: '500',
+            color: 'coral',
+        },
     }
 )
