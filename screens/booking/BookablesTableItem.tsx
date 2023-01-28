@@ -20,9 +20,9 @@ export default function BookablesTableItem(props: {bookable: BookableInterface})
     return (
         <TouchableOpacity onPress={handlePress} style={styles.box}>
             <View>
-                {(props.bookable.bookableType === BookableType.Car)?
+                {(props.bookable.bookableType === BookableType.CAR)?
                     <CarTilePanel car={props.bookable as CarInterface} />:
-                    (props.bookable.bookableType === BookableType.Flat)?
+                    (props.bookable.bookableType === BookableType.FLAT)?
                         <FlatTilePanel flat={props.bookable as FlatInterface}/>:
                         <ParkTilePanel park={props.bookable as ParkInterface}/>
                 }
