@@ -30,8 +30,8 @@ export default function DefaultFilters (props: {args: GetBookablesArgsInterface,
     }
 
     return (
-        <View>
-            <View style={{flexDirection: 'row'}}>
+        <View style={{flex: 1}}>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', flex: 1}}>
                 <DateInput date={dateFrom} setDate={setDateFrom} label={"From"}/>
                 <DateInput date={dateTo} setDate={setDateTo} label={"To"}/>
                 <PriceFilter from={priceFrom} to={priceTo} setFrom={setPriceFrom} setTo={setPriceTo} label="Price range"/>
