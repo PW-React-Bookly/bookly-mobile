@@ -39,11 +39,11 @@ export default function DateInput(props : {date: Date, setDate: (Date) => void, 
     }
 
     return (
-        <View style={{marginLeft: 20}}>
-            <Text  style={{...styles.inputStyle, textAlign: 'center', textAlignVertical: 'center', height: 'auto'}}>
+        <View style={{marginLeft: 20, paddingRight: 20, paddingBottom: 5}}>
+            <Text  style={{fontWeight: 'bold', fontSize: 16, textAlign: 'center', textAlignVertical: 'center'}}>
                 {props.label}
             </Text>
-            <View style={{flex: 1, flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
                 <TextInput
                     maxLength={2}
                     style={styles.inputStyle}
@@ -71,13 +71,17 @@ export default function DateInput(props : {date: Date, setDate: (Date) => void, 
 }
 
 const styles = StyleSheet.create({
-        inputStyle: {
-            marginTop: 20,
-            width: 100,
-            height: 40,
-            paddingHorizontal: 10,
-            borderRadius: 50,
-            backgroundColor: '#DCDCDC',
-        },
+    inputStyle: {
+        marginTop: 20,
+        marginLeft: 5,
+        marginRight: 5,
+        width: 80,
+        height: 40,
+        paddingHorizontal: 10,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        backgroundColor: '#e2e2e2',
+    },
     }
 );

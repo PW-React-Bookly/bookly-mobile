@@ -33,7 +33,7 @@ const FilterCollapsible = (props: {
                         onPress={setFilters}
                         style={styles.button}>
                         <Text style={styles.buttonLabel}>
-                            Filter
+                            Apply
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -52,13 +52,13 @@ const styles = StyleSheet.create({
             marginHorizontal: '1%',
             minWidth: '10%',
             textAlign: 'center',
-            width: 40,
-            height: 40,
+            width: 150,
+            padding: 10
         },
         buttonLabel: {
             textAlignVertical: 'center',
             textAlign: 'center',
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: '500',
             color: 'coral',
         },

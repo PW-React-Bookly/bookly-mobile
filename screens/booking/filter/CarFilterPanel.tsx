@@ -30,7 +30,7 @@ const CarFilterPanel = (props: {args: GetBookablesArgsInterface, setFilterArgs: 
     }
 
     return (
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
             <View>
                 <Text  style={styles.label}>
                     Car type
@@ -62,25 +62,18 @@ const CarFilterPanel = (props: {args: GetBookablesArgsInterface, setFilterArgs: 
 export default CarFilterPanel;
 
 const styles = StyleSheet.create({
-        inputStyle: {
-            marginTop: 20,
-            marginLeft: 20,
-            width: 300,
-            height: 40,
-            paddingHorizontal: 10,
-            borderRadius: 50,
-            backgroundColor: '#DCDCDC',
-        },
+    inputStyle: {
+        marginTop: 20,
+        marginLeft: 30,
+        width: 200,
+        height: 40,
+        paddingHorizontal: 10,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        backgroundColor: '#e2e2e2',
+    },
         label: {
-            marginTop: 20,
-            marginLeft: 20,
-            paddingHorizontal: 10,
-            borderRadius: 50,
-            backgroundColor: '#DCDCDC',
-            textAlign: 'center',
-            textAlignVertical: 'center',
-            height: 'auto',
-            width: 100
-        }
+        fontWeight: 'bold', fontSize: 16, backgroundColor: 'white', textAlign: 'center', textAlignVertical: 'center'}
     }
 );

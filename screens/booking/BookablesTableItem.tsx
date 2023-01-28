@@ -34,11 +34,11 @@ export default function BookablesTableItem(props: {bookable: BookableInterface})
 
 const styles = StyleSheet.create({
     box: {
-        backgroundColor: '#0ABAB5',
+        backgroundColor: '#f5c49d',
         justifyContent: 'center',
         alignItems: 'stretch',
         margin: 5,
-        padding: 5,
+        padding: 10,
         borderRadius: 4,
     },
     centeredView: {

@@ -13,10 +13,10 @@ export default function BookingsTableItem(props: {booking: BookingInterface}) {
 
     return (
         <TouchableOpacity onPress={handlePress} style={styles.box}>
-            <Text style={styles.label}>Item name {props.booking.id}</Text>
+            <Text style={{...styles.label, fontWeight: "500"}}>Item name {props.booking.id}</Text>
             <Text style={styles.label}>From: {dateToString(props.booking.bookedFrom)}</Text>
             <Text style={styles.label}>To: {dateToString(props.booking.bookedUntil)}</Text>
-            <Text style={styles.label}>Price: {props.booking.totalPrice}</Text>
+            <Text style={styles.label}>Price: {props.booking.totalPrice}$</Text>
             {modalVisible && <MyBookingsModal booking={props.booking} setVisible={setModalVisible}/>}
         </TouchableOpacity>
     )
@@ -24,11 +24,11 @@ export default function BookingsTableItem(props: {booking: BookingInterface}) {
 
 const styles = StyleSheet.create({
     box: {
-        backgroundColor: '#0ABAB5',
+        backgroundColor: '#f5c49d',
         justifyContent: 'center',
         alignItems: 'stretch',
         margin: 5,
-        padding: 5,
+        padding: 10,
         borderRadius: 4,
     },
     label: {
