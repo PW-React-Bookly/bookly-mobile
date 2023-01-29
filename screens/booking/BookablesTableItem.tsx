@@ -7,8 +7,8 @@ import FlatTilePanel from "./FlatTilePanel";
 import ParkTilePanel from "./ParkTilePanel";
 import CarTilePanel from "../bookables/car/CarTilePanel";
 import {CarInterface} from "../bookables/car/carInterface";
-import {FlatInterface} from "../interfaces/flatInterface";
 import {ParkInterface} from "../interfaces/parkInterface";
+import flatInterface from "../bookables/flat/flatInterface";
 
 export default function BookablesTableItem(props: {bookable: BookableInterface}) {
 
@@ -23,7 +23,7 @@ export default function BookablesTableItem(props: {bookable: BookableInterface})
                 {(props.bookable.bookableType === BookableType.Car)?
                     <CarTilePanel car={props.bookable as CarInterface} />:
                     (props.bookable.bookableType === BookableType.Flat)?
-                        <FlatTilePanel flat={props.bookable as FlatInterface}/>:
+                        <FlatTilePanel flat={props.bookable as flatInterface}/>:
                         <ParkTilePanel park={props.bookable as ParkInterface}/>
                 }
             </View>

@@ -1,10 +1,15 @@
-import {StyleSheet, Text} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import React from "react";
-import {FlatInterface} from "../interfaces/flatInterface";
+import flatInterface from "../bookables/flat/flatInterface";
 
-const FlatTilePanel = (props: {flat: FlatInterface}) => {
+const FlatTilePanel = (props: {flat: flatInterface}) => {
     return (
-        <Text style={styles.label}>Item name {props.flat.description}</Text>
+        <View>
+            <Text style={styles.label}>${props.flat.price} per Day </Text>
+            <Text style={styles.label}>Capacity: {props.flat.capacity} people</Text>
+            <Text style={styles.label}>Rooms: {props.flat.rooms}</Text>
+            <Text style={styles.label}>City: {props.flat.town}</Text>
+        </View>
     );
 }
 

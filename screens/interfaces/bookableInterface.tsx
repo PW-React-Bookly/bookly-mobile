@@ -1,5 +1,5 @@
-import {FlatInterface} from "./flatInterface";
 import {CarInterface} from "../bookables/car/carInterface";
 import {ParkInterface} from "./parkInterface";
+import flatInterface from "../bookables/flat/flatInterface";
 
-export type BookableInterface = FlatInterface | CarInterface | ParkInterface
+export type BookableInterface = flatInterface | CarInterface | ParkInterface
