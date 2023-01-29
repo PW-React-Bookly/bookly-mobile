@@ -1,14 +1,40 @@
 import {TextInput, View, StyleSheet, Text, Pressable} from "react-native";
-import {Formik} from "formik";
+import {Formik, FormikHelpers, FormikValues} from "formik";
 import * as yup from "yup";
+import postLogin from "./postLogin";
+import {useRecoilState} from "recoil";
+import {tokenAtom} from "../../utils/recoil/tokenAtom";
 
 function SignInScreen({ navigation }) {
+
+    const [_, setToken] = useRecoilState(tokenAtom);
+
+    const handleFormSubmit = async (values: FormikValues, actions: FormikHelpers<FormikValues>, navigation) =>{
+        const result = await postLogin(values['email'], values['password']);
+        if(result !== '') {
+            setToken(result.token);
+            navigation.navigate('HomeDrawer');
+        }
+        else
+            actions.resetForm();
+    }
+
+    const registrationValidationSchema = yup.object().shape({
+        email: yup
+            .string()
+            .email("Please enter valid email")
+            .required('Email Address is required'),
+        password: yup
+            .string()
+            .required('Password is required'),
+    })
+
     return (
         <View style={styles.container}>
             <Formik
                 validationSchema={registrationValidationSchema}
                 initialValues={{email: '', password: ''}}
-                onSubmit={() => handleFormSubmit(navigation)}
+                onSubmit={(values, actions) => handleFormSubmit(values, actions,navigation)}
             >
                 {({
                       handleChange,
@@ -54,20 +80,6 @@ function SignInScreen({ navigation }) {
         </View>
     );
 }
-
-const handleFormSubmit = (navigation) =>{
-    navigation.navigate('HomeDrawer');
-}
-
-const registrationValidationSchema = yup.object().shape({
-    email: yup
-        .string()
-        .email("Please enter valid email")
-        .required('Email Address is required'),
-    password: yup
-        .string()
-        .required('Password is required'),
-})
 
 const styles = StyleSheet.create({
     container: {

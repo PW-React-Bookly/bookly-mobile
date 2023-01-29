@@ -1,16 +1,24 @@
 import {useEffect, useState} from "react";
 import {BookingInterface} from "../interfaces/bookingInterface";
 import {GetBookingsArgsInterface} from "../interfaces/getBookingsArgsInterface";
+import {tokenAtom} from "../../utils/recoil/tokenAtom";
+import {useRecoilValue} from "recoil";
 
 const useGetBookings = (args: GetBookingsArgsInterface) => {
 
     const [data, setData] = useState<BookingInterface[]>([]);
 
+    const token = useRecoilValue(tokenAtom);
+
     const endpointUrl = `http://localhost:8080/bookings/user?page=${args.pageContext.currentPage}&pageSize=${args.pageContext.pageSize}`;
 
     useEffect(() =>
         {
-            fetch(buildUrl())
+            fetch(buildUrl(), {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
                 .then(async (response) => {
                 if (!response.ok)
                     throw Error(response.statusText);

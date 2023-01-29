@@ -5,14 +5,14 @@ import CarDetailsPanel from "../bookables/car/CarDetailsPanel";
 import FlatDetailsPanel from "../details/FlatDetailsPanel";
 import ParkDetailsPanel from "../details/ParkDetailsPanel";
 import BookingPanel from "./BookingPanel";
-import cancelCarBooking from "../booking/carly/cancelCarBooking";
+import usePostCancelBooking from "../booking/usePostCancelBooking";
 
 const MyBookingsModal = (props: {booking: BookingInterface, setVisible: (x: boolean)=>void}) => {
 
-    const handleCancel = () => {
-        if(props.booking.bookableType === BookableType.CAR)
-            cancelCarBooking(props.booking.id);
+    const cancelBooking = usePostCancelBooking();
 
+    const handleCancel = () => {
+        cancelBooking(props.booking.id);
         props.setVisible(false);
     }
 
