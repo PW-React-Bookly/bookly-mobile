@@ -46,7 +46,7 @@ function SignInScreen({ navigation }) {
                         }
                         <Pressable onPress={() => handleSubmit()}
                                    style={isValid ? styles.button : styles.buttonDisabled} disabled={!isValid}>
-                            <Text style={styles.btnText}>Sign up</Text>
+                            <Text style={styles.btnText}>Sign in</Text>
                         </Pressable>
                     </>
                 )}

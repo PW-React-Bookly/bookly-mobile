@@ -7,8 +7,8 @@ import FlatTilePanel from "./FlatTilePanel";
 import ParkTilePanel from "./ParkTilePanel";
 import CarTilePanel from "../bookables/car/CarTilePanel";
 import {CarInterface} from "../bookables/car/carInterface";
-import {FlatInterface} from "../interfaces/flatInterface";
 import {ParkInterface} from "../interfaces/parkInterface";
+import flatInterface from "../bookables/flat/flatInterface";
 
 export default function BookablesTableItem(props: {bookable: BookableInterface}) {
 
@@ -34,11 +34,11 @@ export default function BookablesTableItem(props: {bookable: BookableInterface})
 
 const styles = StyleSheet.create({
     box: {
-        backgroundColor: '#0ABAB5',
+        backgroundColor: '#f5c49d',
         justifyContent: 'center',
         alignItems: 'stretch',
         margin: 5,
-        padding: 5,
+        padding: 10,
         borderRadius: 4,
     },
     centeredView: {

@@ -26,26 +26,26 @@ const MyBookingsModal = (props: {booking: BookingInterface, setVisible: (x: bool
             }}>
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <View>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={() => props.setVisible(false)}>
-                            <Text style={styles.textStyle}>X</Text>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.button, styles.buttonClose]}
-                            onPress={handleCancel}>
-                            <Text style={styles.textStyle}>Cancel</Text>
-                        </Pressable>
-                    </View>
                     <BookingPanel booking={props.booking}/>
                     <View>
                         {(props.booking.bookableType === BookableType.CAR)?
-                            <CarDetailsPanel id={props.booking.id} bookableType={BookableType.CAR}/>:
+                            <CarDetailsPanel id={props.booking.id} bookableType={BookableType.FLAT}/>:
                             (props.booking.bookableType === BookableType.FLAT)?
                                 <FlatDetailsPanel id={props.booking.id} bookableType={BookableType.FLAT}/>:
                                 <ParkDetailsPanel id={props.booking.id} bookableType={BookableType.PARK}/>
                         }
+                    </View>
+                    <View style={{flexDirection: "row"}}>
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => props.setVisible(false)}>
+                            <Text style={styles.textStyle}>Close modal</Text>
+                        </Pressable>
+                        <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={handleCancel}>
+                            <Text style={styles.textStyle}>Cancel reservation</Text>
+                        </Pressable>
                     </View>
                 </View>
             </View>
@@ -78,8 +78,10 @@ const styles = StyleSheet.create({
         width: '90%'
     },
     button: {
-        borderRadius: 20,
+        borderRadius: 10,
         padding: 10,
+        margin: 10,
+        width: 150,
         elevation: 2,
         alignSelf: 'flex-start'
     },

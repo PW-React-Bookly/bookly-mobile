@@ -2,7 +2,7 @@ import {createDrawerNavigator} from "@react-navigation/drawer";
 import HomeScreen from "./HomeScreen";
 import BookingScreen from "../booking/BookingScreen";
 import MyBookingsScreen from "../profile/MyBookingsScreen";
-import {Button} from "react-native";
+import {Button, View} from "react-native";
 import {useEffect, useState} from "react";
 
 export default function HomeDrawer({navigation}) {
@@ -27,9 +27,11 @@ export default function HomeDrawer({navigation}) {
         [navigation]
     );
     return (
-        <Drawer.Navigator initialRouteName="MyBookings" screenOptions={({navigation}) => ({
+        <Drawer.Navigator initialRouteName="Booking" screenOptions={({navigation}) => ({
             headerRight: () => (
-                <Button title="Sign Out" onPress={handleSignOut}/>
+                <View style={{marginRight: 30}}>
+                    <Button title="Sign Out" onPress={handleSignOut}/>
+                </View>
             ),
             gestureEnabled: false
         })}>

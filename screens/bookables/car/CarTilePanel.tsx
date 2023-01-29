@@ -5,8 +5,8 @@ import {CarInterface} from "./carInterface";
 const CarTilePanel = (props: {car: CarInterface}) => {
     return (
         <View>
-            <Text style={styles.label}>${props.car.dayPrice} per Day </Text>
-            <Text style={styles.label}>{props.car.model.name} - {props.car.model.brand.name}  </Text>
+            <Text style={{...styles.label, fontWeight: "500"}}>{props.car.model.name} {props.car.model.brand.name} ({props.car.model.productionYear}) </Text>
+            <Text style={styles.label}>${props.car.dayPrice} per day </Text>
             <Text style={styles.label}>{props.car.color}</Text>
         </View>
     );

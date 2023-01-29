@@ -7,12 +7,16 @@ import {GetBookablesArgsInterface} from "../interfaces/getBookablesArgsInterface
 import useGetBookables from "./useGetBookables";
 import BookablesTable from "./BookablesTable";
 import FilterCollapsible from "./filter/FilterCollapsible";
+import CarFilterPanel from "./filter/CarFilterPanel";
+import DefaultFilters from "./filter/DefaultFilters";
 
 function BookingScreen({ navigation }) {
     const flatListRef = useRef<FlatList>()
     const [bookables, setBookables] = useState<BookableInterface[]>([]);
     const [args, setArgs] = useState<GetBookablesArgsInterface>({bookableType: BookableType.FLAT,
         pageContext: {currentPage: 0, pageSize: 10}, queryParameters: new Map<string, string>()});
+    const [filterArgs, setFilterArgs] = useState<Map<string, string>>(new Map<string, string>());
+
     const {
         data
     } = useGetBookables(args);
@@ -51,7 +55,12 @@ function BookingScreen({ navigation }) {
                 <BookingTypeButton label={"Parking"} value={BookableType.PARK} selectedValue={args.bookableType}
                                    setSelectedValue={setBookableType}/>
             </View>
-            <FilterCollapsible  args={args} setArgs={setArgs}/>
+            <FilterCollapsible filterArgs={filterArgs} setArgs={setArgs}>
+                <View style={{flexDirection: "row", flexWrap: "wrap"}}>
+                    <DefaultFilters args={args} setFilterArgs={setFilterArgs}/>
+                    {args.bookableType == BookableType.Car ? <CarFilterPanel args={args} setFilterArgs={setFilterArgs}/> : <View/>}
+                </View>
+            </FilterCollapsible>
             <View style={styles.tableContainer}>
                 <BookablesTable bookables={bookables} fetchData={fetchData} flatListRef={flatListRef}/>
             </View>
