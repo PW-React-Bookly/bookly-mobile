@@ -5,11 +5,17 @@ import CarDetailsPanel from "../bookables/car/CarDetailsPanel";
 import FlatDetailsPanel from "../details/FlatDetailsPanel";
 import ParkDetailsPanel from "../details/ParkDetailsPanel";
 import {BookableInterface} from "../interfaces/bookableInterface";
+import postCarBooking from "./carly/postCarBooking";
 
 const BookableModal = (props: {bookable: BookableInterface, setVisible: (x: boolean)=>void}) => {
 
-    const fromDateInput: Date = new Date(Date.now());
-    const untilDateInput: Date = new Date(Date.now() + 1000000000);
+    const fromDateInput: Date = new Date("3000-01-02");
+    const untilDateInput: Date = new Date(fromDateInput.getTime() + 1000000000);
+
+    const handleBooking = () => {
+        if(props.bookable.bookableType === BookableType.CAR)
+            postCarBooking(props.bookable.id, fromDateInput, untilDateInput);
+    }
 
     return (
         <Modal
@@ -43,16 +49,16 @@ const BookableModal = (props: {bookable: BookableInterface, setVisible: (x: bool
                         />
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={() => {}}>
+                            onPress={handleBooking}>
                             <Text style={styles.textStyle}>Book</Text>
                         </Pressable>
                     </View>
                     <View>
-                        {(props.bookable.bookableType === BookableType.Car)?
-                            <CarDetailsPanel id={props.bookable.id} bookableType={BookableType.Car}/>:
-                            (props.bookable.bookableType === BookableType.Flat)?
-                                <FlatDetailsPanel id={props.bookable.id} bookableType={BookableType.Flat}/>:
-                                <ParkDetailsPanel id={props.bookable.id} bookableType={BookableType.Park}/>
+                        {(props.bookable.bookableType === BookableType.CAR)?
+                            <CarDetailsPanel id={props.bookable.id} bookableType={BookableType.CAR}/>:
+                            (props.bookable.bookableType === BookableType.FLAT)?
+                                <FlatDetailsPanel id={props.bookable.id} bookableType={BookableType.FLAT}/>:
+                                <ParkDetailsPanel id={props.bookable.id} bookableType={BookableType.PARK}/>
                         }
                     </View>
                 </View>

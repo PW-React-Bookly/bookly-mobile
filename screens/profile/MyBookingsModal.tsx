@@ -5,8 +5,16 @@ import CarDetailsPanel from "../bookables/car/CarDetailsPanel";
 import FlatDetailsPanel from "../details/FlatDetailsPanel";
 import ParkDetailsPanel from "../details/ParkDetailsPanel";
 import BookingPanel from "./BookingPanel";
+import cancelCarBooking from "../booking/carly/cancelCarBooking";
 
 const MyBookingsModal = (props: {booking: BookingInterface, setVisible: (x: boolean)=>void}) => {
+
+    const handleCancel = () => {
+        if(props.booking.bookableType === BookableType.CAR)
+            cancelCarBooking(props.booking.id);
+
+        props.setVisible(false);
+    }
 
     return (
         <Modal
@@ -20,11 +28,11 @@ const MyBookingsModal = (props: {booking: BookingInterface, setVisible: (x: bool
                 <View style={styles.modalView}>
                     <BookingPanel booking={props.booking}/>
                     <View>
-                        {(props.booking.bookableType === BookableType.Car)?
-                            <CarDetailsPanel id={props.booking.id} bookableType={BookableType.Car}/>:
-                            (props.booking.bookableType === BookableType.Flat)?
-                                <FlatDetailsPanel id={props.booking.id} bookableType={BookableType.Flat}/>:
-                                <ParkDetailsPanel id={props.booking.id} bookableType={BookableType.Park}/>
+                        {(props.booking.bookableType === BookableType.CAR)?
+                            <CarDetailsPanel id={props.booking.id} bookableType={BookableType.FLAT}/>:
+                            (props.booking.bookableType === BookableType.FLAT)?
+                                <FlatDetailsPanel id={props.booking.id} bookableType={BookableType.FLAT}/>:
+                                <ParkDetailsPanel id={props.booking.id} bookableType={BookableType.PARK}/>
                         }
                     </View>
                     <View style={{flexDirection: "row"}}>
@@ -35,7 +43,7 @@ const MyBookingsModal = (props: {booking: BookingInterface, setVisible: (x: bool
                         </Pressable>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={() => {}}>
+                            onPress={handleCancel}>
                             <Text style={styles.textStyle}>Cancel reservation</Text>
                         </Pressable>
                     </View>

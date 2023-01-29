@@ -10,7 +10,7 @@ function MyBookingsScreen({navigation}) {
 
     const flatListRef = useRef<FlatList>()
     const [bookings, setBookings] = useState<BookingInterface[]>([]);
-    const [args, setArgs] = useState<GetBookingsArgsInterface>({bookableType: BookableType.Flat,
+    const [args, setArgs] = useState<GetBookingsArgsInterface>({bookableType: BookableType.FLAT,
         pageContext: {currentPage: 0, pageSize: 10}});
     const {
         data,
@@ -41,11 +41,11 @@ function MyBookingsScreen({navigation}) {
     return (
         <View style={styles.container}>
             <View style={styles.row}>
-                <BookingTypeButton label={"Flats"} value={BookableType.Flat} selectedValue={args.bookableType}
+                <BookingTypeButton label={"Flats"} value={BookableType.FLAT} selectedValue={args.bookableType}
                                    setSelectedValue={setBookableType}/>
-                <BookingTypeButton label={"Cars"} value={BookableType.Car} selectedValue={args.bookableType}
+                <BookingTypeButton label={"Cars"} value={BookableType.CAR} selectedValue={args.bookableType}
                                    setSelectedValue={setBookableType}/>
-                <BookingTypeButton label={"Parking"} value={BookableType.Park} selectedValue={args.bookableType}
+                <BookingTypeButton label={"Parking"} value={BookableType.PARK} selectedValue={args.bookableType}
                                    setSelectedValue={setBookableType}/>
             </View>
             <View style={styles.tableContainer}>
@@ -54,154 +54,6 @@ function MyBookingsScreen({navigation}) {
         </View>
     );
 }
-/*
-const mockUsers1: UserInterface[] = [
-    {firstName: 'Igor', lastName: 'Faliszewski', email: 'igorfaliszewski.pw.edu.pl', id: 1, isActive: true},
-    {firstName: 'Jakub', lastName: 'Borek', email: 'jakubborek.pw.edu.pl', id: 2, isActive: true}
-]
-
-const mockBookings: BookingInterface[] = [
-    {
-        id: 0,
-        user: mockUsers1[0],
-        bookableType: BookableType.Car,
-        bookedFrom: new Date("2001-02-24"),
-        bookedUntil: new Date("2002-02-24"),
-        totalPrice: 9,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 1,
-        user: mockUsers1[1],
-        bookableType: BookableType.Flat,
-        bookedFrom: new Date("2003-02-24"),
-        bookedUntil: new Date("2004-02-24"),
-        totalPrice: 13.01,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 2,
-        user: mockUsers1[0],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2005-02-24"),
-        bookedUntil: new Date("2006-02-24"),
-        totalPrice: 0.00,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 3,
-        user: mockUsers1[1],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2007-02-24"),
-        bookedUntil: new Date("2008-02-24"),
-        totalPrice: 99.22,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 4,
-        user: mockUsers1[1],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2007-02-24"),
-        bookedUntil: new Date("2008-02-24"),
-        totalPrice: 99.22,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 5,
-        user: mockUsers1[1],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2007-02-24"),
-        bookedUntil: new Date("2008-02-24"),
-        totalPrice: 99.22,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 6,
-        user: mockUsers1[1],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2007-02-24"),
-        bookedUntil: new Date("2008-02-24"),
-        totalPrice: 99.22,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 7,
-        user: mockUsers1[1],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2007-02-24"),
-        bookedUntil: new Date("2008-02-24"),
-        totalPrice: 99.22,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 8,
-        user: mockUsers1[1],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2007-02-24"),
-        bookedUntil: new Date("2008-02-24"),
-        totalPrice: 99.22,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 9,
-        user: mockUsers1[1],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2007-02-24"),
-        bookedUntil: new Date("2008-02-24"),
-        totalPrice: 99.22,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 10,
-        user: mockUsers1[1],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2007-02-24"),
-        bookedUntil: new Date("2008-02-24"),
-        totalPrice: 99.22,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 11,
-        user: mockUsers1[1],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2007-02-24"),
-        bookedUntil: new Date("2008-02-24"),
-        totalPrice: 99.22,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 12,
-        user: mockUsers1[1],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2007-02-24"),
-        bookedUntil: new Date("2008-02-24"),
-        totalPrice: 99.22,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-    {
-        id: 13,
-        user: mockUsers1[1],
-        bookableType: BookableType.Park,
-        bookedFrom: new Date("2007-02-24"),
-        bookedUntil: new Date("2008-02-24"),
-        totalPrice: 99.22,
-        itemExternalId: "123",
-        isCancelled: false
-    },
-]*/
 
 const styles = StyleSheet.create({
     container: {

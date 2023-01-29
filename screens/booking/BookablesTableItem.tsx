@@ -8,7 +8,7 @@ import ParkTilePanel from "./ParkTilePanel";
 import CarTilePanel from "../bookables/car/CarTilePanel";
 import {CarInterface} from "../bookables/car/carInterface";
 import {ParkInterface} from "../interfaces/parkInterface";
-import flatInterface from "../bookables/flat/flatInterface";
+import FlatInterface from "../bookables/flat/flatInterface";
 
 export default function BookablesTableItem(props: {bookable: BookableInterface}) {
 
@@ -20,10 +20,10 @@ export default function BookablesTableItem(props: {bookable: BookableInterface})
     return (
         <TouchableOpacity onPress={handlePress} style={styles.box}>
             <View>
-                {(props.bookable.bookableType === BookableType.Car)?
+                {(props.bookable.bookableType === BookableType.CAR)?
                     <CarTilePanel car={props.bookable as CarInterface} />:
-                    (props.bookable.bookableType === BookableType.Flat)?
-                        <FlatTilePanel flat={props.bookable as flatInterface}/>:
+                    (props.bookable.bookableType === BookableType.FLAT)?
+                        <FlatTilePanel flat={props.bookable as FlatInterface}/>:
                         <ParkTilePanel park={props.bookable as ParkInterface}/>
                 }
             </View>
