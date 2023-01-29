@@ -2,17 +2,28 @@ import {useEffect, useState} from "react";
 import {GetBookablesArgsInterface} from "../interfaces/getBookablesArgsInterface";
 import {BookableInterface} from "../interfaces/bookableInterface";
 import {BookableResponseInterface} from "./bookableResponseInterface";
+import {useRecoilState, useRecoilValue} from "recoil";
+import {tokenAtom} from "../../utils/recoil/tokenAtom";
+import {loadingAtom} from "../../utils/recoil/loadingAtom";
 
 const useGetBookables = (args: GetBookablesArgsInterface) => {
 
     const [data, setData] = useState<BookableInterface[]>([]);
+    const [_, setLoading] = useRecoilState(loadingAtom);
+    const token = useRecoilValue(tokenAtom);
 
     const endpointUrl = `http://localhost:8080`;
 
     useEffect(() =>
         {
-            fetch(buildUrl())
+            setLoading(true);
+            fetch(buildUrl(), {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
                 .then(async (response) => {
+                    setLoading(false);
                     if (!response.ok)
                         throw Error(response.statusText);
                     const bookablesResponse: BookableResponseInterface = await response.json();

@@ -1,27 +1,26 @@
 import {FlatList, RefreshControl} from "react-native";
-import React, {Ref, useEffect, useState} from "react";
+import React, {Ref, useEffect} from "react";
 import {BookableInterface} from "../interfaces/bookableInterface";
 import BookablesTableItem from "./BookablesTableItem";
+import { useRecoilValue} from "recoil";
+import {loadingAtom} from "../../utils/recoil/loadingAtom";
 
 export default function BookablesTable(props: {
     bookables: BookableInterface[],
     fetchData: (boolean) => void,
     flatListRef: Ref<FlatList<BookableInterface>>
 },) {
-    const [loading, setLoading] = useState(false);
+    const loading = useRecoilValue(loadingAtom);
     function handleFetchData() {
-        setLoading(true);
         props.fetchData(false);
 
     }
     function handleRefresh() {
-        setLoading(true);
         props.fetchData(true);
 
     }
 
     useEffect(() => {
-        setLoading(false);
     }, [props.bookables]);
 
     return (

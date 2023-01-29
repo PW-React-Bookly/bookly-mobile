@@ -1,20 +1,32 @@
-import {Alert, Modal, Pressable, StyleSheet, Text, TextInput, View} from "react-native";
-import React from "react";
+import {Alert, Modal, Pressable, StyleSheet, Text, View} from "react-native";
+import React, {useState} from "react";
 import {BookableType} from "../interfaces/bookingInterface";
 import CarDetailsPanel from "../bookables/car/CarDetailsPanel";
 import FlatDetailsPanel from "../details/FlatDetailsPanel";
 import ParkDetailsPanel from "../details/ParkDetailsPanel";
 import {BookableInterface} from "../interfaces/bookableInterface";
-import postCarBooking from "./carly/postCarBooking";
+import usePostCarBooking from "./carly/usePostCarBooking";
+import usePostFlatBooking from "./flatly/usePostFlatBooking";
+import DateInput from "./filter/DateInput";
+import moment from "moment";
+import usePostParkBooking from "./parkly/usePostParkBooking";
 
 const BookableModal = (props: {bookable: BookableInterface, setVisible: (x: boolean)=>void}) => {
 
-    const fromDateInput: Date = new Date("3000-01-02");
-    const untilDateInput: Date = new Date(fromDateInput.getTime() + 1000000000);
+    const postCarBooking = usePostCarBooking();
+    const postFlatBooking = usePostFlatBooking();
+    const postParkBooking = usePostParkBooking();
+    const [dateFrom, setDateFrom] = useState(moment().toDate());
+    const [dateTo, setDateTo] = useState(moment().add(1, "days").toDate())
 
     const handleBooking = () => {
         if(props.bookable.bookableType === BookableType.CAR)
-            postCarBooking(props.bookable.id, fromDateInput, untilDateInput);
+            postCarBooking(props.bookable.id, dateFrom, dateTo);
+        if(props.bookable.bookableType === BookableType.FLAT)
+            postFlatBooking(props.bookable.id, dateFrom, dateTo);
+        if(props.bookable.bookableType === BookableType.PARK)
+            postParkBooking(props.bookable.id, dateFrom, dateTo);
+        props.setVisible(false);
     }
 
     return (
@@ -33,20 +45,8 @@ const BookableModal = (props: {bookable: BookableInterface, setVisible: (x: bool
                             onPress={() => props.setVisible(false)}>
                             <Text style={styles.textStyle}>X</Text>
                         </Pressable>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={()=>{}}
-                            value={fromDateInput.toString()}
-                            placeholder="Book From"
-                            keyboardType="default"
-                        />
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={()=>{}}
-                            value={untilDateInput.toString()}
-                            placeholder="Book To"
-                            keyboardType="default"
-                        />
+                        <DateInput date={dateFrom} setDate={setDateFrom} label={'From'}/>
+                        <DateInput date={dateTo} setDate={setDateTo} label={'To'}/>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={handleBooking}>

@@ -1,6 +1,7 @@
 import {Pressable, StyleSheet, Text, TextInput, View} from "react-native";
-import { Formik } from 'formik'
+import {Formik, FormikHelpers, FormikValues} from 'formik'
 import * as yup from 'yup'
+import postUser from "./postUser";
 
 function SignUpScreen ({navigation}) {
     return (
@@ -8,7 +9,7 @@ function SignUpScreen ({navigation}) {
             <Formik
                 validationSchema={registrationValidationSchema}
                 initialValues={{name: '', surname: '', email: '', password: '', passwordConfirmation: ''}}
-                onSubmit={() => handleFormSubmit(navigation)}
+                onSubmit={(values, actions) => handleFormSubmit(values, actions,navigation)}
             >
                 {({
                       handleChange,
@@ -87,8 +88,15 @@ function SignUpScreen ({navigation}) {
     );
 }
 
-const handleFormSubmit = (navigation) =>{
-    navigation.navigate('HomeDrawer');
+const handleFormSubmit = async (values: FormikValues, actions: FormikHelpers<FormikValues>, navigation) => {
+    actions.setFieldError('passwordConfirmation','');
+    if(values['password'] !== values['passwordConfirmation']){
+        actions.setFieldError('passwordConfirmation','passwords don\'t match!');
+        return;
+    }
+    const result = await postUser(values['name'], values['surname'], values['email'], values['password']);
+    if(result)
+        navigation.navigate('SignIn');
 }
 
 const registrationValidationSchema = yup.object().shape({
