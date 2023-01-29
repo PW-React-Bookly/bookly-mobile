@@ -58,7 +58,7 @@ function BookingScreen({ navigation }) {
             <FilterCollapsible filterArgs={filterArgs} setArgs={setArgs}>
                 <View style={{flexDirection: "row", flexWrap: "wrap"}}>
                     <DefaultFilters args={args} setFilterArgs={setFilterArgs}/>
-                    {args.bookableType == BookableType.Car ? <CarFilterPanel args={args} setFilterArgs={setFilterArgs}/> : <View/>}
+                    {args.bookableType == BookableType.CAR ? <CarFilterPanel args={args} setFilterArgs={setFilterArgs}/> : <View/>}
                 </View>
             </FilterCollapsible>
             <View style={styles.tableContainer}>

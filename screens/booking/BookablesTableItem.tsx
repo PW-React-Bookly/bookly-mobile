@@ -8,7 +8,7 @@ import ParkTilePanel from "./ParkTilePanel";
 import CarTilePanel from "../bookables/car/CarTilePanel";
 import {CarInterface} from "../bookables/car/carInterface";
 import {ParkInterface} from "../interfaces/parkInterface";
-import flatInterface from "../bookables/flat/flatInterface";
+import FlatInterface from "../bookables/flat/flatInterface";
 
 export default function BookablesTableItem(props: {bookable: BookableInterface}) {
 
