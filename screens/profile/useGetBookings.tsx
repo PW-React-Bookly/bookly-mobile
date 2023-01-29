@@ -3,6 +3,8 @@ import {BookingInterface} from "../interfaces/bookingInterface";
 import {GetBookingsArgsInterface} from "../interfaces/getBookingsArgsInterface";
 import {tokenAtom} from "../../utils/recoil/tokenAtom";
 import {useRecoilValue} from "recoil";
+// @ts-ignore
+import {BACKEND_URL} from '@env';
 
 const useGetBookings = (args: GetBookingsArgsInterface) => {
 
@@ -10,7 +12,8 @@ const useGetBookings = (args: GetBookingsArgsInterface) => {
 
     const token = useRecoilValue(tokenAtom);
 
-    const endpointUrl = `http://localhost:8080/bookings/user?page=${args.pageContext.currentPage}&pageSize=${args.pageContext.pageSize}`;
+    const backendUrl = BACKEND_URL;
+    const endpointUrl = backendUrl + `/bookings/user?page=${args.pageContext.currentPage}&pageSize=${args.pageContext.pageSize}`;
 
     useEffect(() =>
         {

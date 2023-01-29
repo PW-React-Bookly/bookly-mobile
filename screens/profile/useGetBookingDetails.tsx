@@ -1,21 +1,26 @@
 import {useEffect, useState} from "react";
 import {BookableType} from "../interfaces/bookingInterface";
 import {BookableInterface} from "../interfaces/bookableInterface";
+// @ts-ignore
+import {BACKEND_URL} from '@env';
 
 const useGetBookingDetails = (args: {id: string, bookableType: BookableType}) => {
 
     const [data, setData] = useState<any>({});
+    const [isLoading, setIsLoading] = useState(false);
 
-    const endpointUrl = `http://localhost:8080`;
+    const endpointUrl = BACKEND_URL;
 
     useEffect(() =>
         {
+            setIsLoading(true);
             fetch(buildUrl())
                 .then(async (response) => {
+                    setIsLoading(false);
                     if (!response.ok)
                         throw Error(response.statusText);
-                    const details: BookableInterface[] = await response.json();
-                    setData(details.map(d => ({...d, bookableType: args.bookableType})));
+                    const details: BookableInterface = await response.json();
+                    setData(details);
                 }).catch((error) => {
                     console.log(error);
             });
@@ -32,7 +37,8 @@ const useGetBookingDetails = (args: {id: string, bookableType: BookableType}) =>
     }
 
     return {
-        data: data
+        data: data,
+        isLoading: isLoading
     };
 }
 

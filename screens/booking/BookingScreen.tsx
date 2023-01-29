@@ -66,7 +66,7 @@ function BookingScreen({ navigation }) {
             </FilterCollapsible>
             <View style={styles.tableContainer}>
                 <BookablesTable bookables={bookables} fetchData={fetchData} flatListRef={flatListRef}/>
-                {loading && <ActivityIndicator animating={true} color="orange" size="large" style={{margin: 15, position:'absolute', backgroundColor:'white'}}/>}
+                {loading && <ActivityIndicator animating={true} color="teal" size="large" style={{margin: 15, position:'absolute'}}/>}
             </View>
         </View>
     );

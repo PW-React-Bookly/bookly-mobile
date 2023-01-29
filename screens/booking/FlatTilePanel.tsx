@@ -1,8 +1,8 @@
 import {StyleSheet, Text, View} from "react-native";
 import React from "react";
-import flatInterface from "../bookables/flat/flatInterface";
+import FlatInterface from "../bookables/flat/flatInterface";
 
-const FlatTilePanel = (props: {flat: flatInterface}) => {
+const FlatTilePanel = (props: {flat: FlatInterface}) => {
     return (
         <View>
             <Text style={{...styles.label, fontWeight: "500"}}>{props.flat.address} {props.flat.town} </Text>

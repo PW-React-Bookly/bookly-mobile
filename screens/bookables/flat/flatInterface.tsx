@@ -1,6 +1,6 @@
 import {BookableType} from "../../interfaces/bookingInterface";
 
-export default interface flatInterface {
+export default interface FlatInterface {
     bookableType: BookableType,
     id: string,
     country: string,

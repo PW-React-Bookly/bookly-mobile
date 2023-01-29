@@ -1,4 +1,4 @@
-import {Alert, Modal, Pressable, StyleSheet, Text, View} from "react-native";
+import {Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
 import React, {useState} from "react";
 import {BookableType} from "../interfaces/bookingInterface";
 import CarDetailsPanel from "../bookables/car/CarDetailsPanel";
@@ -10,6 +10,9 @@ import usePostFlatBooking from "./flatly/usePostFlatBooking";
 import DateInput from "./filter/DateInput";
 import moment from "moment";
 import usePostParkBooking from "./parkly/usePostParkBooking";
+import {CarInterface} from "../bookables/car/carInterface";
+import FlatInterface from "../bookables/flat/flatInterface";
+import {ParkInterface} from "../interfaces/parkInterface";
 
 const BookableModal = (props: {bookable: BookableInterface, setVisible: (x: boolean)=>void}) => {
 
@@ -53,14 +56,14 @@ const BookableModal = (props: {bookable: BookableInterface, setVisible: (x: bool
                             <Text style={styles.textStyle}>Book</Text>
                         </Pressable>
                     </View>
-                    <View>
+                    <ScrollView>
                         {(props.bookable.bookableType === BookableType.CAR)?
-                            <CarDetailsPanel id={props.bookable.id} bookableType={BookableType.CAR}/>:
+                            <CarDetailsPanel car={props.bookable as CarInterface}/>:
                             (props.bookable.bookableType === BookableType.FLAT)?
-                                <FlatDetailsPanel id={props.bookable.id} bookableType={BookableType.FLAT}/>:
-                                <ParkDetailsPanel id={props.bookable.id} bookableType={BookableType.PARK}/>
+                                <FlatDetailsPanel flat={props.bookable as FlatInterface}/>:
+                                <ParkDetailsPanel park={props.bookable as ParkInterface}/>
                         }
-                    </View>
+                    </ScrollView>
                 </View>
             </View>
         </Modal>

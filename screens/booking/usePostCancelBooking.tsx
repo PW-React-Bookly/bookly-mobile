@@ -1,9 +1,11 @@
 import {tokenAtom} from "../../utils/recoil/tokenAtom";
 import {useRecoilValue} from "recoil";
+// @ts-ignore
+import {BACKEND_URL} from '@env';
 
 const usePostCancelBooking = () => {
 
-    const backendUrl = `http://localhost:8080`; // TODO Make an env value out of it for God's sake
+    const backendUrl = BACKEND_URL;
 
     const token = useRecoilValue(tokenAtom);
 

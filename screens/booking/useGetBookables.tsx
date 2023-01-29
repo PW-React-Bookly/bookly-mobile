@@ -5,6 +5,8 @@ import {BookableResponseInterface} from "./bookableResponseInterface";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {tokenAtom} from "../../utils/recoil/tokenAtom";
 import {loadingAtom} from "../../utils/recoil/loadingAtom";
+// @ts-ignore
+import {BACKEND_URL} from '@env';
 
 const useGetBookables = (args: GetBookablesArgsInterface) => {
 
@@ -12,7 +14,7 @@ const useGetBookables = (args: GetBookablesArgsInterface) => {
     const [_, setLoading] = useRecoilState(loadingAtom);
     const token = useRecoilValue(tokenAtom);
 
-    const endpointUrl = `http://localhost:8080`;
+    const endpointUrl = BACKEND_URL;
 
     useEffect(() =>
         {
@@ -30,6 +32,7 @@ const useGetBookables = (args: GetBookablesArgsInterface) => {
                     setData(bookablesResponse.bookables.map(bookable => ({...bookable, bookableType: args.bookableType})));
                 }).catch((error) => {
                     console.log(error);
+                    setData([]);
             });
         },
         [args])

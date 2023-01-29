@@ -1,11 +1,11 @@
-import {Alert, Modal, Pressable, StyleSheet, Text, View} from "react-native";
+import {Alert, Modal, Pressable, ScrollView, StyleSheet, Text, View} from "react-native";
 import React from "react";
 import {BookableType, BookingInterface} from "../interfaces/bookingInterface";
 import CarDetailsPanel from "../bookables/car/CarDetailsPanel";
 import FlatDetailsPanel from "../details/FlatDetailsPanel";
 import ParkDetailsPanel from "../details/ParkDetailsPanel";
-import BookingPanel from "./BookingPanel";
 import usePostCancelBooking from "../booking/usePostCancelBooking";
+import useGetBookingDetails from "./useGetBookingDetails";
 
 const MyBookingsModal = (props: {booking: BookingInterface, setVisible: (x: boolean)=>void}) => {
 
@@ -15,6 +15,10 @@ const MyBookingsModal = (props: {booking: BookingInterface, setVisible: (x: bool
         cancelBooking(props.booking.id);
         props.setVisible(false);
     }
+
+    const {
+        data
+    } = useGetBookingDetails({id: props.booking.id, bookableType: props.booking.bookableType})
 
     return (
         <Modal
@@ -26,20 +30,11 @@ const MyBookingsModal = (props: {booking: BookingInterface, setVisible: (x: bool
             }}>
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <BookingPanel booking={props.booking}/>
-                    <View>
-                        {(props.booking.bookableType === BookableType.CAR)?
-                            <CarDetailsPanel id={props.booking.id} bookableType={BookableType.FLAT}/>:
-                            (props.booking.bookableType === BookableType.FLAT)?
-                                <FlatDetailsPanel id={props.booking.id} bookableType={BookableType.FLAT}/>:
-                                <ParkDetailsPanel id={props.booking.id} bookableType={BookableType.PARK}/>
-                        }
-                    </View>
                     <View style={{flexDirection: "row"}}>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => props.setVisible(false)}>
-                            <Text style={styles.textStyle}>Close modal</Text>
+                            <Text style={styles.textStyle}>X</Text>
                         </Pressable>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
@@ -47,6 +42,14 @@ const MyBookingsModal = (props: {booking: BookingInterface, setVisible: (x: bool
                             <Text style={styles.textStyle}>Cancel reservation</Text>
                         </Pressable>
                     </View>
+                    <ScrollView>
+                        {(props.booking.bookableType === BookableType.CAR)?
+                            <CarDetailsPanel car={data}/>:
+                            (props.booking.bookableType === BookableType.FLAT)?
+                                <FlatDetailsPanel flat={data}/>:
+                                <ParkDetailsPanel park={data}/>
+                        }
+                    </ScrollView>
                 </View>
             </View>
         </Modal>

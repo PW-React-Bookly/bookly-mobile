@@ -1,19 +1,11 @@
-import {BookableType} from "../interfaces/bookingInterface";
 import {View, Text} from "react-native";
-import useGetBookingDetails from "../profile/useGetBookingDetails";
 import {ParkInterface} from "../interfaces/parkInterface";
 
-const ParkDetailsPanel = (props: {id: string, bookableType: BookableType}) => {
-
-    const {
-        data,
-    } = useGetBookingDetails(props);
-
-    const park = data as ParkInterface;
+const ParkDetailsPanel = (props: {park: ParkInterface}) => {
 
     return (
         <View>
-            <Text>{park.description}</Text>
+            <Text>{props.park.description}</Text>
         </View>
     );
 }

@@ -1,8 +1,10 @@
 import {LoginInterface} from "./loginInterface";
+// @ts-ignore
+import {BACKEND_URL} from '@env';
 
 const postLogin = async (email: string, password: string) => {
 
-    const backendUrl = `http://localhost:8080`; // TODO Make an env value out of it for God's sake
+    const backendUrl = BACKEND_URL;
     const url =  backendUrl + '/users/login';
 
     try {
