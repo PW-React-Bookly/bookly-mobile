@@ -1,5 +1,4 @@
 import {createDrawerNavigator} from "@react-navigation/drawer";
-import HomeScreen from "./HomeScreen";
 import BookingScreen from "../booking/BookingScreen";
 import MyBookingsScreen from "../profile/MyBookingsScreen";
 import {Button, View} from "react-native";
@@ -35,7 +34,6 @@ export default function HomeDrawer({navigation}) {
             ),
             gestureEnabled: false
         })}>
-            <Drawer.Screen name="Home" component={HomeScreen}/>
             <Drawer.Screen name="Booking" component={BookingScreen}/>
             <Drawer.Screen name="MyBookings" component={MyBookingsScreen}/>
         </Drawer.Navigator>
