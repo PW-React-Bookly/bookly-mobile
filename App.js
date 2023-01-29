@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="HomeDrawer">
+            <Stack.Navigator initialRouteName="SignedOut">
                 <Stack.Screen name="HomeDrawer" component={HomeDrawer} options={{headerShown: false}}/>
                 <Stack.Screen name="SignUp" component={SignUpScreen}/>
                 <Stack.Screen name="SignIn" component={SignInScreen}/>

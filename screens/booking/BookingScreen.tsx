@@ -56,8 +56,10 @@ function BookingScreen({ navigation }) {
                                    setSelectedValue={setBookableType}/>
             </View>
             <FilterCollapsible filterArgs={filterArgs} setArgs={setArgs}>
-                <DefaultFilters args={args} setFilterArgs={setFilterArgs}/>
-                {args.bookableType == BookableType.Car ? <CarFilterPanel args={args} setFilterArgs={setFilterArgs}/> : <div/>}
+                <View style={{flexDirection: "row", flexWrap: "wrap"}}>
+                    <DefaultFilters args={args} setFilterArgs={setFilterArgs}/>
+                    {args.bookableType == BookableType.Car ? <CarFilterPanel args={args} setFilterArgs={setFilterArgs}/> : <View/>}
+                </View>
             </FilterCollapsible>
             <View style={styles.tableContainer}>
                 <BookablesTable bookables={bookables} fetchData={fetchData} flatListRef={flatListRef}/>
