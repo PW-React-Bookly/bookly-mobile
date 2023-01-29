@@ -1,10 +1,14 @@
-import {StyleSheet, Text} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import React from "react";
 import {ParkInterface} from "../interfaces/parkInterface";
 
 const ParkTilePanel = (props: {park: ParkInterface}) => {
     return (
-        <Text style={styles.label}>Item name {props.park.description}</Text>
+        <View>
+            <Text style={{...styles.label, fontWeight: "500"}}>{props.park.name} </Text>
+            <Text style={styles.label}>${props.park.pricePerDay} per day </Text>
+            <Text style={styles.label}>{props.park.description}</Text>
+        </View>
     );
 }
 

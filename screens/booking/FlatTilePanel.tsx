@@ -5,10 +5,10 @@ import flatInterface from "../bookables/flat/flatInterface";
 const FlatTilePanel = (props: {flat: flatInterface}) => {
     return (
         <View>
-            <Text style={styles.label}>${props.flat.price} per Day </Text>
+            <Text style={{...styles.label, fontWeight: "500"}}>{props.flat.address} {props.flat.town} </Text>
+            <Text style={styles.label}>${props.flat.price} per day </Text>
             <Text style={styles.label}>Capacity: {props.flat.capacity} people</Text>
             <Text style={styles.label}>Rooms: {props.flat.rooms}</Text>
-            <Text style={styles.label}>City: {props.flat.town}</Text>
         </View>
     );
 }
