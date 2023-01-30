@@ -14,8 +14,6 @@ const useGetBookables = (args: GetBookablesArgsInterface) => {
     const [_, setLoading] = useRecoilState(loadingAtom);
     const token = useRecoilValue(tokenAtom);
 
-    const endpointUrl = BACKEND_URL;
-
     useEffect(() =>
         {
             setLoading(true);
@@ -38,7 +36,7 @@ const useGetBookables = (args: GetBookablesArgsInterface) => {
         [args])
 
     const buildUrl = () => {
-        let url = endpointUrl;
+        let url = BACKEND_URL;
         if (args.bookableType != undefined) {
             url+=`/${args.bookableType.toLowerCase()}s`
             url+= `?page=${args.pageContext.currentPage}&pageSize=${args.pageContext.pageSize}`;

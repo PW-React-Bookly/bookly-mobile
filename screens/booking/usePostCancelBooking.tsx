@@ -5,12 +5,10 @@ import {BACKEND_URL} from '@env';
 
 const usePostCancelBooking = () => {
 
-    const backendUrl = BACKEND_URL;
-
     const token = useRecoilValue(tokenAtom);
 
     return (bookingId: string) => {
-        const url =  backendUrl + '/bookings/cancel/' + bookingId;
+        const url =  BACKEND_URL + '/bookings/cancel/' + bookingId;
         fetch(url, {
             method: 'POST',
             headers: {

@@ -1,15 +1,16 @@
 import {useRecoilValue} from "recoil";
 import {tokenAtom} from "../../../utils/recoil/tokenAtom";
 import {ParklyBookingRequestInterface} from "./parklyBookingRequestInterface";
+// @ts-ignore
+import {BACKEND_URL} from '@env';
 
 
 const usePostFlatBooking = () => {
 
-    const backendUrl = `http://localhost:8080`; // TODO Make an env value out of it for God's sake
-    const url =  backendUrl + '/bookings/book/parkly';
     const token = useRecoilValue(tokenAtom);
 
     return (parkId: string, from: Date, to: Date) => {
+        const url =  BACKEND_URL + '/bookings/book/parkly';
         fetch(url, {
             method: 'POST',
             headers: {

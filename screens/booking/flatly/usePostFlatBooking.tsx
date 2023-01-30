@@ -1,15 +1,16 @@
 import {useRecoilValue} from "recoil";
 import {tokenAtom} from "../../../utils/recoil/tokenAtom";
 import {FlatlyBookingRequestInterface} from "./fatlyBookingRequestInterface";
+// @ts-ignore
+import {BACKEND_URL} from '@env';
 
 
 const usePostFlatBooking = () => {
 
-    const backendUrl = `http://localhost:8080`; // TODO Make an env value out of it for God's sake
-    const url =  backendUrl + '/bookings/book/flatly';
     const token = useRecoilValue(tokenAtom);
 
     return (flatId: string, from: Date, to: Date) => {
+        const url =  BACKEND_URL + '/bookings/book/flatly';
         fetch(url, {
             method: 'POST',
             headers: {

@@ -9,7 +9,7 @@ const useGetBookingDetails = (args: {id: string, bookableType: BookableType}) =>
     const [data, setData] = useState<any>({});
     const [isLoading, setIsLoading] = useState(false);
 
-    const endpointUrl = BACKEND_URL;
+
 
     useEffect(() =>
         {
@@ -28,7 +28,7 @@ const useGetBookingDetails = (args: {id: string, bookableType: BookableType}) =>
         [args])
 
     const buildUrl = () => {
-        let url = endpointUrl;
+        let url = BACKEND_URL;
         if (args.bookableType != undefined) {
             url+=`/${args.bookableType.toLowerCase()}s`
             url+=`/${args.id}`;

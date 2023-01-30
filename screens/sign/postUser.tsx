@@ -4,10 +4,8 @@ import {BACKEND_URL} from '@env';
 
 const postUser = async (name: string, surname: string, email: string, password: string) => {
 
-    const backendUrl = BACKEND_URL;
-    const url =  backendUrl + '/users';
-
     try {
+        const url =  BACKEND_URL + '/users';
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

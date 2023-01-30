@@ -12,9 +12,6 @@ const useGetBookings = (args: GetBookingsArgsInterface) => {
 
     const token = useRecoilValue(tokenAtom);
 
-    const backendUrl = BACKEND_URL;
-    const endpointUrl = backendUrl + `/bookings/user?page=${args.pageContext.currentPage}&pageSize=${args.pageContext.pageSize}`;
-
     useEffect(() =>
         {
             fetch(buildUrl(), {
@@ -34,7 +31,7 @@ const useGetBookings = (args: GetBookingsArgsInterface) => {
         [args])
 
     const buildUrl = () => {
-        let url = endpointUrl;
+        let url = BACKEND_URL + `/bookings/user?page=${args.pageContext.currentPage}&pageSize=${args.pageContext.pageSize}`;
         if (args.bookableType != undefined) {
             url+=`&bookableType=${args.bookableType}`
         }

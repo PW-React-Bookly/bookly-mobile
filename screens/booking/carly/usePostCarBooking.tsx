@@ -1,14 +1,16 @@
 import {CarlyBookingRequestInterface} from "./carlyBookingRequestInterface";
 import {useRecoilValue} from "recoil";
 import {tokenAtom} from "../../../utils/recoil/tokenAtom";
+// @ts-ignore
+import {BACKEND_URL} from '@env';
 
 const usePostCarBooking = () => {
 
-    const backendUrl = `http://localhost:8080`; // TODO Make an env value out of it for God's sake
-    const url =  backendUrl + '/bookings/book/carly';
+
     const token = useRecoilValue(tokenAtom);
 
     return (carId: string, from: Date, to: Date) => {
+        const url =  BACKEND_URL + '/bookings/book/carly';
         fetch(url, {
             method: 'POST',
             headers: {
