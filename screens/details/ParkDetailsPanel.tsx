@@ -10,7 +10,7 @@ const ParkDetailsPanel = (props: {park: ParkInterface}) => {
         props.park.pricePerDay,
         `${props.park.latitude}, ${props.park.longitude}`,
         props.park.capacity,
-        props.park.security,
+        props.park.security? 'Yes': 'No',
         props.park.parkingLotType
     ];
     const names = [
